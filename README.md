@@ -11,3 +11,6 @@ for the next iteration. The algorithm runs until no similar pixels can be found
 -Specify a starting pixel for the bucket fill
 -Specify a tolerance (ie how "similar" pixels have to be to be added 
 to the region)
+
+# Notes
+This project works best on svg or computer generated images with litle noise

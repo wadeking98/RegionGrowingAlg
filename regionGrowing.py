@@ -126,7 +126,7 @@ def inRegion(pixel, regMap):
         
 
 
-def regionGrow(pixel, image, regMap, Q, tolerance=1, imageCopy=None, newImgVal=0):
+def regionGrow(pixel, image, regMap, tolerance=1, imageCopy=None, newImgVal=0):
     """
     the main logic of the region growing algorithm, from a given pixel it will add adjacent pixels to the region
     if they are similar. The algorithm will keep going until there are no similar adjacent pixels
@@ -141,6 +141,8 @@ def regionGrow(pixel, image, regMap, Q, tolerance=1, imageCopy=None, newImgVal=0
         arg6 : int the intensity of the new image value, between 0-255
     
     """
+    
+    Q = queue.Queue()
     
     #mark starting pixel
     regMap[pixel[0]][pixel[1]]=newImgVal
@@ -215,7 +217,7 @@ err = True
 while err:
     #get tolerance from user
     print("enter tolerance for bucket fill, if you dont know what ")
-    tolerance = int(input("this is 1 is normally a good value: "))
+    tolerance = int(input("this is 50 is normally a good value "))
     if tolerance < 0 or tolerance > 255:
         print("Err: incorrect value for tolerance, please choose a value between 0-255")
         err = True
@@ -234,15 +236,11 @@ regMap = np.full(image.shape, 255)
 
 
 
-
-
-Q = queue.Queue()
-
-
-
-regionGrow(stPx, image, regMap, Q, tolerance=tolerance, imageCopy=imageCopy)
+regionGrow(stPx, image, regMap, tolerance=tolerance, imageCopy=imageCopy)
 
 
 cv2.imwrite("output.jpg", imageCopy)
 cv2.imwrite("regionMap.jpg", regMap)
+
+
 
